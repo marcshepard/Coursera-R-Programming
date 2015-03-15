@@ -90,6 +90,21 @@ unitTest <- function () {
 	}
 	print ("PASS")
 
+	print ("Testing cache code path...")
+	if (!identical (z$get() %*% z$getInverse(), diag(2))) {
+		stop ("Failed: getInverse doesn't create the right inverse on second call")
+	}
+	print ("PASS")
+
+	print ("Testing clearInverse()...")
+	z$clearInverse()
+	if (!identical (z$get() %*% z$getInverse(), diag(2))) {
+		stop ("Failed: getInverse doesn't create the right inverse after clearInverse")
+	}
+	print ("PASS")
+
+
+
 	print ("Testing silly cacheSolve wrapper...");
 	if (!identical (cacheSolve(z), z$getInverse())) {
 		stop ("Failed: cacheSolve doesn't return the same thing as z$getInverse");
